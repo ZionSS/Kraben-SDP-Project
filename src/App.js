@@ -12,6 +12,9 @@ import Contest from './components/pages/Contest';
 import { AuthContextProvider } from './components/AuthContext';
 import ProtectedRoute from './components/Protect';
 import Navbar from './components/Navbar'
+import Thankyou from './components/pages/Thankyou';
+import Checkout from './components/pages/Checkout';
+import Product from './components/pages/Product';
 
 function App() {
   return (
@@ -46,6 +49,21 @@ function App() {
             <Route excat path='/profile' element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }></Route>
+            <Route excat path='/thankyou' element={
+              <ProtectedRoute>
+                <Thankyou />
+              </ProtectedRoute>
+            }></Route>
+            <Route excat path='/checkout' element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }></Route>
+            <Route excat path='/product' element={
+              <ProtectedRoute>
+                <Product />
               </ProtectedRoute>
             }></Route>
           </Routes>

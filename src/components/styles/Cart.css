@@ -1,6 +1,51 @@
 .cartBg {
     width: 100%;
-    min-height: 90vh;
+    min-height: auto;
     height: auto;
     background-attachment: fixed;
+    flex-direction: row;
+}
+
+.header {
+    font-family: cursive;
+    font-size: 60px;
+    text-align: center;
+}
+
+.shopping {
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8vh;
+}
+
+.shoppingInfo {
+    align-items: center;
+    width: 50%;
+    height: auto;
+    background-color:#cee;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+.shoppingInfo div{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+.shoppingSummary {
+    align-items: center;
+    width: 30%;
+    height: auto;
+    background-color:#cee;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    margin-left: 20px;
 }

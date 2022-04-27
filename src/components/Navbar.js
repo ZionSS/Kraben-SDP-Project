@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './styles/Navbar.css'
-import countNumber from '../helpers/Stingray'
 import { UserAuth } from './AuthContext'
 
 const Navbar = () => {
-  const count = countNumber
   const { user } = UserAuth()
 
   if (user) {
@@ -20,7 +18,6 @@ const Navbar = () => {
               <span>
                 <i className="bi bi-cart3" />
               </span>
-              <span>10</span>
             </div>
           </Link>
         </div>
@@ -40,7 +37,6 @@ const Navbar = () => {
               <span>
                 <i className="bi bi-cart3" />
               </span>
-              <span>{count.length}</span>
             </div>
           </Link>
         </div>

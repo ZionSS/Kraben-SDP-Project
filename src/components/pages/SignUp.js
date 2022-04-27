@@ -22,6 +22,7 @@ const SignUp = () => {
   const { createUser } = UserAuth();
   const navigate = useNavigate();
 
+
   function createWebUser(event) {
     axios({
       method: 'POST',
@@ -37,19 +38,60 @@ const SignUp = () => {
     const start = Date.now();
     while (Date.now() - start < milliseconds);
   }
+  console.log(typeof postal)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    try {
-      await createUser(email, password)
-        .then(createWebUser(e))
-        .then(sleep(1000))
-        .then(getUser())
-        .then(createAppUser(e));
-      navigate('/login');
-    } catch (e) {
-      setError(e.message);
-      console.log(e.message);
+    
+    if (firstName.length < 6 || firstName.length > 20) {
+      alert('Firstname length must between 6 and 20 characters')
+    }
+    else if (lastName.length < 6 || lastName.length > 20) {
+      alert('Lastname length must between 6 and 20 characters')
+    }
+    else if (email == ''){
+      alert("Email must not be empty");
+    }
+    else if (password.length < 8 || password.length > 20) {
+      alert("Your password must be between 8 and 20 characters");
+    }
+    else if (password === password.toUpperCase()) {
+      alert("Your password must contain at least one lowercase");
+    }
+    else if (password === password.toLowerCase()) {
+      alert("Your password must contain at least one uppercase");
+    }
+    else if (password.search(/[0-9]/) < 0) {
+      alert("Your password must contain at least one number");
+    }
+    else if (address.length < 3 || address.length > 40) {
+      alert('Address length must between 3 and 40 characters')
+    }
+    else if (district.length < 1 || district.length > 20) {
+      alert('District length must between 1 and 20 characters')
+    }
+    else if (province == '') {
+      alert('Province must be selected')
+    }
+    else if (postal.length != 5) {
+      alert('Postal Code must be at 5 characters')
+    }
+    else if (isNaN(parseInt(postal))){
+      alert('Postal Code must be number')
+    }
+    else {
+      try {
+        await createUser(email, password)
+          .then(createWebUser(e))
+          .then(sleep(1000))
+          .then(getUser())
+          .then(createAppUser(e))
+          .then(navigate('/login'));
+
+      } catch (e) {
+        setError(e.message);
+        console.log(e.message);
+      }
     }
   };
   function createAppUser(event) {

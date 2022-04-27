@@ -5,7 +5,7 @@ function Footer(){
     return(
         <div className="footer">
             <div className="word">
-                ใส่อะไรดี???
+                
             </div>
         </div>
     )

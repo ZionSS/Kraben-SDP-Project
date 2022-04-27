@@ -21,7 +21,7 @@ const Login = () => {
             console.log('You are logged in')
         } catch (e) {
             setError(e.message)
-            console.log(e.message)
+            alert('Invalid Email or Password')
         }
     }
     return (

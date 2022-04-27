@@ -1,5 +1,4 @@
-import Data from './Data';
-import StingrayInfo from '../components/StingrayInfo';
+import Card from '../components/Card';
 import { useEffect, useState } from 'react';
 import '../components/styles/Stingray.css';
 
@@ -11,19 +10,19 @@ const Stingray = () => {
     setCart([...cart, item]);
     console.log(cart);
   };
-
-  const countNumber = (cart) => {
-    return cart;
-  };
-
-  const handleChange = (item, d) => {
-    const ind = cart.indexOf(item);
-    const arr = cart;
-    arr[ind].amount += d;
-
-    if (arr[ind].amount === 0) arr[ind].amount = 1;
-    setCart([...arr]);
-  };
+  /*
+    const countNumber = (cart) => {
+      return cart;
+    };
+  
+    const handleChange = (item, d) => {
+      const ind = cart.indexOf(item);
+      const arr = cart;
+      arr[ind].amount += d;
+  
+      if (arr[ind].amount === 0) arr[ind].amount = 1;
+      setCart([...arr]);
+    };*/
   const [kraben, setKraben] = useState([]);
 
   const get_kraben = async () => {
@@ -62,10 +61,10 @@ const Stingray = () => {
 
       <div className="krabenList">
         {kraben
-          //.filter((n) => n.name.toLowerCase().includes(query))
+          .filter((n) => n.title.toLowerCase().includes(query))
           .map((item) => {
             return (
-              <StingrayInfo
+              <Card
                 key={item.id}
                 image={item.img}
                 name={item.title}
