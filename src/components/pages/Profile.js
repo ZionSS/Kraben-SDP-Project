@@ -8,6 +8,7 @@ import axios from 'axios';
 const Profile = () => {
   const { user, logout } = UserAuth();
   const navigate = useNavigate();
+  const [data, setData] = useState([])
 
   const handleLogout = async () => {
     try {
@@ -18,6 +19,19 @@ const Profile = () => {
       console.log(e.message);
     }
   };
+
+  const get_data = () => {
+    axios({
+      method:'GET',
+      url: 'http://localhost:8000/api/appuser/',
+    }).then((response) => {
+        const data = response.data
+        setData(
+            data.map((test) => test.id)
+          );
+          console.log('get_data = ' + data.map((test) => test.id))
+    })
+  }
 
   return (
     <div className="profileBg" style={{ backgroundImage: `url(${bg})` }}>

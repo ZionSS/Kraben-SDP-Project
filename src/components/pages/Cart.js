@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Cart.css'
 import bg from '../../images/BG.jpg'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Cart = () => {
     const [cartItems, setCartItems] = useState([])
+    const [data, setData] = useState([])
+    const [id,setId] = useState([])
     const navigate = useNavigate()
     const handleSubmit = () => {
         navigate('/checkout')
     }
+
     // temporary
     let amount1 = 3
     let amount2 = 1
@@ -17,14 +21,45 @@ const Cart = () => {
     const price2 = 1000
     const price3 = 1000
 
+    const get_id = () => {
+        axios({
+          method:'GET',
+          url: 'http://localhost:8000/api/orderitem/',
+        }).then((response) => {
+            const data = response.data
+            setId(
+                data.map((test) => test.product_id)
+              );
+              console.log('get_id = ' + data.map((test) => test.product_id))
+        })
+    }
+
+    const get_data = () => {
+        axios({
+          method:'GET',
+          url: 'http://localhost:8000/api/product/',
+        }).then((response) => {
+            const data = response.data
+            setData(
+                data.map((test) => test.id)
+              );
+              console.log('get_data = ' + data.map((test) => test.id))
+        })
+      }
+
     const onAdd = () => {
-        console.log('add')
-        amount1 = amount1 + 1
+        //console.log('add')
+        get_id()
     }
 
     const onRemove = () => {
-        console.log('remove')
+       //console.log('remove')
+       get_data()
     }
+
+    useEffect(()=>{
+        onAdd()
+    },[])
 
     return (
         <div className='cartBg' style={{ backgroundImage: `url(${bg})` }}>

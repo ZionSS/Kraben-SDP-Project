@@ -38,16 +38,14 @@ const SignUp = () => {
     const start = Date.now();
     while (Date.now() - start < milliseconds);
   }
-  console.log(typeof postal)
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setError('');
-    
-    if (firstName.length < 6 || firstName.length > 20) {
-      alert('Firstname length must between 6 and 20 characters')
+    if (firstName.length < 2 || firstName.length > 20) {
+      alert('Firstname length must between 2 and 20 characters')
     }
-    else if (lastName.length < 6 || lastName.length > 20) {
-      alert('Lastname length must between 6 and 20 characters')
+    else if (lastName.length < 2 || lastName.length > 20) {
+      alert('Lastname length must between 2 and 20 characters')
     }
     else if (email == ''){
       alert("Email must not be empty");
@@ -86,13 +84,17 @@ const SignUp = () => {
           .then(sleep(1000))
           .then(getUser())
           .then(createAppUser(e))
-          .then(navigate('/login'));
+          navigate('/');
+          console.log('userid='+userid+'typeof user = '+typeof userid)
+          console.log('userid='+setUserid+'typeof user = '+typeof setUserid)
 
       } catch (e) {
         setError(e.message);
+        alert(e.message)
         console.log(e.message);
       }
     }
+    e.preventDefault();
   };
   function createAppUser(event) {
     axios({
@@ -107,7 +109,7 @@ const SignUp = () => {
         address: address,
         district: district,
         province: province,
-        pincode: postal,
+        pincode: postal
       },
     }).then((response) => {
       getUser();
@@ -117,7 +119,7 @@ const SignUp = () => {
   useEffect(() => {
     getUser();
   }, []);
-  function getUser() {
+  function getUser(event) {
     axios({
       method: 'GET',
       url: 'http://localhost:8000/api/user/',
@@ -130,17 +132,15 @@ const SignUp = () => {
             .map((test) => test.id)
             .at(0)
         );
-        console.log(data);
-        console.log(data.filter((e) => e.username == email));
+        console.log('data = '+ data);
+        console.log('data filter = ' + data.filter((e) => e.username == email));
         console.log(
-          data.filter((e) => e.username == email).map((test) => test.id)[0]
+          'data filter map id = ' + data.filter((e) => e.username == email).map((test) => test.id).at(0)
         );
         console.log(
-          data
-            .filter((e) => e.username == email)
-            .map((test) => test.id)
-            .at(0)
+          'type of data filter map id = ' + typeof data.filter((e) => e.username == email).map((test) => test.id).at(0)
         );
+        console.log('userid = ' + userid)
       })
       .catch((error) => {
         if (error.response) {
@@ -227,7 +227,7 @@ const SignUp = () => {
               onChange={(e) => setDistrict(e.target.value)}
               type="text"
               class="form-control"
-              id="inputCity"
+              id="inputDistrict"
             />
           </div>
           <div class="col-md-4">

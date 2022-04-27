@@ -1,28 +1,26 @@
 import Card from '../components/Card';
 import { useEffect, useState } from 'react';
 import '../components/styles/Stingray.css';
+import axios from 'axios';
 
 const Stingray = () => {
   const [query, setQuery] = useState('');
-  const [cart, setCart] = useState([]);
-  const handleClick = (item) => {
-    if (cart.indexOf(item) !== -1) return;
-    setCart([...cart, item]);
-    console.log(cart);
-  };
-  /*
-    const countNumber = (cart) => {
-      return cart;
-    };
+  const handleClick = (id, amount) => {
+    console.log(id, amount)
+    post_kraben(id,amount)
+  }
+  const post_kraben = (id,amount) => {
+    axios({
+      method:'POST',
+      url: 'http://localhost:8000/api/orderitem/',
+      data:{
+        product_id:id,
+        quantity:amount
+      }
+    })
+  }
   
-    const handleChange = (item, d) => {
-      const ind = cart.indexOf(item);
-      const arr = cart;
-      arr[ind].amount += d;
-  
-      if (arr[ind].amount === 0) arr[ind].amount = 1;
-      setCart([...arr]);
-    };*/
+
   const [kraben, setKraben] = useState([]);
 
   const get_kraben = async () => {
@@ -31,7 +29,7 @@ const Stingray = () => {
       const kraben_data = await res.json();
       setKraben(kraben_data);
       console.log(kraben);
-      console.log('success');
+      //console.log('success');
     } catch (error) {
       console.log(error);
     }
@@ -39,12 +37,7 @@ const Stingray = () => {
   useEffect(() => {
     get_kraben();
   }, []);
-  /*
-  useEffect(() => {
-    console.log('cart change');
-  }, []);
-*/
-  console.log(query);
+
   return (
     <div className="stingray">
       <div className="col-15">
@@ -69,8 +62,9 @@ const Stingray = () => {
                 image={item.img}
                 name={item.title}
                 description={item.description}
-                price={'Price(Baht) : ' + item.price}
-                id={item.amount}
+                price={item.price}
+                id={item.id}
+                amount={item.amount}
                 handleClick={handleClick}
               />
             );
