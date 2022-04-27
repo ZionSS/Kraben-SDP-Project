@@ -1,0 +1,63 @@
+.homeBg {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header {
+    font-family: cursive;
+    font-size: 60px;
+}
+
+.sellButton {
+    font-size: 30px;
+    width: 250px;
+    height: 80px;
+    font-family: cursive;
+    color: black;
+    background-color: aliceblue;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.sellButton:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+    transform: translateY(2px);
+}
+
+.bidButton {
+    font-size: 30px;
+    width: 250px;
+    height: 80px;
+    font-family: cursive;
+    color: black;
+    background-color: aliceblue;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.bidButton:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+    transform: translateY(2px);
+}
+
+.contestButton {
+    font-size: 30px;
+    width: 250px;
+    height: 80px;
+    font-family: cursive;
+    color: black;
+    background-color: aliceblue;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.contestButton:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+    transform: translateY(2px);
+}

@@ -1,0 +1,6 @@
+.cartBg {
+    width: 100%;
+    min-height: 90vh;
+    height: auto;
+    background-attachment: fixed;
+}
