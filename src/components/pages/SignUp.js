@@ -5,10 +5,10 @@ import { UserAuth } from '../AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+var userid
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
-  const [userid, setUserid] = useState(null);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -83,10 +83,10 @@ const SignUp = () => {
           .then(createWebUser(e))
           .then(sleep(1000))
           .then(getUser())
+          .then(sleep(1000))
           .then(createAppUser(e))
-          navigate('/');
-          console.log('userid='+userid+'typeof user = '+typeof userid)
-          console.log('userid='+setUserid+'typeof user = '+typeof setUserid)
+          navigate('/');  
+          console.log('userid='+userid+' typeof user = '+typeof userid)
 
       } catch (e) {
         setError(e.message);
@@ -97,11 +97,12 @@ const SignUp = () => {
     e.preventDefault();
   };
   function createAppUser(event) {
+    getUser();
     axios({
       method: 'POST',
       url: 'http://localhost:8000/api/appuser/',
       data: {
-        user: userid,
+        user: userid+1,
         user_type: accType,
         first_name: firstName,
         last_name: lastName,
@@ -119,27 +120,17 @@ const SignUp = () => {
   useEffect(() => {
     getUser();
   }, []);
-  function getUser(event) {
+  function getUser() {
     axios({
       method: 'GET',
       url: 'http://localhost:8000/api/user/',
     })
       .then((response) => {
         const data = response.data;
-        setUserid(
-          data
-            .filter((e) => e.username == email)
-            .map((test) => test.id)
-            .at(0)
-        );
         console.log('data = '+ data);
-        console.log('data filter = ' + data.filter((e) => e.username == email));
-        console.log(
-          'data filter map id = ' + data.filter((e) => e.username == email).map((test) => test.id).at(0)
-        );
-        console.log(
-          'type of data filter map id = ' + typeof data.filter((e) => e.username == email).map((test) => test.id).at(0)
-        );
+        console.log('data filter = ' + data.find(e => e.username == email).id);
+        console.log('data filter type = ' + typeof data.find(e => e.username == email).id);
+        userid = data.find((e) => e.username == email).id
         console.log('userid = ' + userid)
       })
       .catch((error) => {
